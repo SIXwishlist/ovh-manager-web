@@ -69,11 +69,14 @@ angular.module("App").controller(
         }
 
         updateConfigurations () {
+            if (this.dbConfigurationForm.$invalid) {
+                return this.$q.reject();
+            }
             this.loading = true;
             this.edit.value = false;
             const parameters = this.configurations.map((conf) => ({ key: conf.key, value: conf.selectedValue.id }));
 
-            this.privateDatabaseService
+            return this.privateDatabaseService
                 .changeConfigurationDetails(this.productId, { parameters })
                 .then(() => {
                     this.alerter.success(this.translator.tr("privateDatabase_configuration_reboot"), this.$scope.alerts.main);
