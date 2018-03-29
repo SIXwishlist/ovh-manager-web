@@ -165,7 +165,7 @@ angular
 
         const config = TRACKING.config;
 
-        OvhApiMe.Lexi().get().$promise
+        OvhApiMe.v6().get().$promise
             .then((me) => {
                 config.countryCode = me.country;
                 config.currencyCode = me.currency && me.currency.code;
